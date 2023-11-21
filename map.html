@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Interactive Fire Data Visualization with Zoom and Pan</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../DataVizFinalProject/D3/d3.v7.js"></script>
     <style>
         .feature {
             fill: orange;
@@ -44,7 +44,7 @@
         // Apply the zoom behavior to the SVG
         svg.call(zoom);
 
-        d3.json("../data/calfire.geojson").then(function(ca) {
+        d3.json("../DataVizFinalProject/data/calfire.geojson").then(function(ca) {
             g.selectAll(".feature")
                .data(ca.features)
                .enter().append("path")
