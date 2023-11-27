@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Interactive Fire Data Visualization with Zoom and Pan</title>
-    <script src="../DataVizFinalProject/D3/d3.v7.js"></script>
+    <title>Interactive Fire Data Visualization with Basemap</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+    integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+    crossorigin=""></script>
     <style>
         #map {
             width: 100%;
-            height: 600px;
+            height: 600px; /* Adjust the height as needed */
+        }
+        #leaflet-map {
+            width: 100%;
+            height: 400px; /* Adjust the height as needed */
         }
         .feature {
             fill: orange;
@@ -17,12 +27,37 @@
             fill: red;
         }
         /* Add styles for your tooltip here */
+        .year-selector {
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
+    <!-- Leaflet map container -->
+    <div id="leaflet-map"></div>
+
+    <!-- D3 map container -->
     <div id="map"></div>
 
+    <!-- Year selector dropdown -->
+    <div class="year-selector">
+        <label for="year-select">Select Year:</label>
+        <select id="year-select"></select>
+    </div>
+
     <script>
+        // Initialize the Leaflet map
+        var leafletMap = L
+            .map('leaflet-map')
+            .setView([39.3, -120], 4.6);
+
+        // Add a tile to the Leaflet map
+        L.tileLayer(
+            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
+                maxZoom: 6,
+            }).addTo(leafletMap);
+
         var width = 960, height = 600;
 
         var svg = d3.select("#map").append("svg")
@@ -48,28 +83,43 @@
         // Apply the zoom behavior to the SVG
         svg.call(zoom);
 
-        // Load and render the OpenStreetMap basemap using D3
-        var tile = d3.tile()
-            .size([width, height]);
+        var yearData; // Store GeoJSON data for all years
+        var selectedYear = ""; // Store the currently selected year
 
-        var image = g.selectAll("image")
-            .data(tile)
-            .enter().append("image")
-            .attr("xlink:href", function (d) {
-                return "https://a.tile.openstreetmap.org/" + d[2] + "/" + d[0] + "/" + d[1] + ".png";
-            })
-            .attr("x", function (d) {
-                return d[0] * 256;
-            })
-            .attr("y", function (d) {
-                return d[1] * 256;
-            })
-            .attr("width", 256)
-            .attr("height", 256);
+        // Load GeoJSON data for all years
+        d3.json("../DataVizFinalProject/data/calfire.geojson").then(function (data) {
+            yearData = data;
+            populateYearSelector();
+            updateMap();
+        });
 
-        d3.json("../DataVizFinalProject/data/calfire.geojson").then(function (ca) {
+        // Populate the year selector dropdown
+        function populateYearSelector() {
+            var years = Array.from(new Set(yearData.features.map(feature => feature.properties.YEAR)));
+            var yearSelect = d3.select("#year-select");
+
+            yearSelect
+                .selectAll("option")
+                .data(years)
+                .enter()
+                .append("option")
+                .text(d => d)
+                .attr("value", d => d);
+
+            yearSelect.on("change", function () {
+                selectedYear = this.value;
+                updateMap();
+            });
+        }
+
+        // Update the map based on the selected year
+        function updateMap() {
+            var filteredFeatures = yearData.features.filter(feature => feature.properties.YEAR === selectedYear);
+
+            g.selectAll(".feature").remove(); // Clear existing features
+
             g.selectAll(".feature")
-                .data(ca.features)
+                .data(filteredFeatures)
                 .enter().append("path")
                 .attr("class", "feature")
                 .attr("d", path)
@@ -79,7 +129,8 @@
                 .on("mouseout", function (event, d) {
                     // Hide tooltip or reverse any hover effects
                 });
-        });
+        }
     </script>
 </body>
 </html>
+
