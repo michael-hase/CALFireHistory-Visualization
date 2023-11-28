@@ -87,7 +87,7 @@
         var selectedYear = ""; // Store the currently selected year
 
         // Load GeoJSON data for all years
-        d3.json("https://github.com/michael-hase/hase-datavisualization-final.github.io/blob/12105b46f22bca58c9f98987ea400916830db726/data/calfire.geojson").then(function (data) {
+        d3.json("https://raw.githubusercontent.com/michael-hase/hase-datavisualization-final.github.io/12105b46f22bca58c9f98987ea400916830db726/data/calfire.geojson").then(function (data) {
             yearData = data;
             populateYearSelector();
             updateMap();
