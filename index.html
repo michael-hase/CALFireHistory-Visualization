@@ -88,12 +88,9 @@
         // Add polygons
         polygons = svg
           .selectAll('path')
-          .data(data.features) // Bind GeoJSON features
+          .data([data]) // Bind GeoJSON features
           .enter()
-          .append('path')
-          .on('click', function (d) {
-            alert('Fire Name: ' + d.properties.FIRE_NAME);
-          }); // Add click event listener
+          .append('path'); // Add click event listener
 
         // Call the update function
         update();
