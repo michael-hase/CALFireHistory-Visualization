@@ -1,112 +1,117 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>Data Viz Final</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js" charset="utf-8"></script>
+      <meta charset="utf-8" />
+      <title>mapboxgl.js + d3.js tutorial - 04</title>
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+      <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css" rel="stylesheet" />
+      <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js"></script>
+      <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js" charset="utf-8"></script>
 
-    <style media="screen">
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
-    </style>
+      <style media="screen">
+          body { margin:0; padding:0; }
+          #map { position:absolute; top:0; bottom:0; width:100%; }
+
+          svg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+          }
+
+          path {
+              fill: #e55e5e;
+              stroke: #e55e5e;
+              stroke-width: 2;
+              fill-opacity: 0.6;
+          }
+
+      </style>
   </head>
   <body>
-    <div id="map"></div>
-    <div id="fireName"></div>
+    <div id="map">
+    </div>
     <script>
-      //////////////////
-      // Mapbox stuff
-      //////////////////
 
-      mapboxgl.accessToken =
-        'pk.eyJ1Ijoiam9yZGl0b3N0IiwiYSI6ImQtcVkyclEifQ.vwKrOGZoZSj3N-9MB6FF_A'; // Replace with your Mapbox access token
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/outdoors-v9',
-        zoom: 5.1,
-        center: [-120, 37.8],
-      });
+        //////////////////
+        // Mapbox stuff
+        //////////////////
 
-      //////////////////////////
-      // Mapbox+D3 Connection
-      //////////////////////////
+        // Set-up map
+    	mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGl0b3N0IiwiYSI6ImQtcVkyclEifQ.vwKrOGZoZSj3N-9MB6FF_A';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/outdoors-v9',
+            zoom:5.1,
+            center: [-120, 37.8],
+        });
 
-      // Get Mapbox map canvas container
-      var canvas = map.getCanvasContainer();
 
-      // Overlay d3 on the map
-      var svg = d3.select(canvas).append('svg');
+        //////////////////////////
+        // Mapbox+D3 Connection
+        //////////////////////////
 
-      // Projection functions
-      var transform = d3.geoTransform({ point: projectPoint });
-      var path = d3.geoPath().projection(transform);
+        // Get Mapbox map canvas container
+        var canvas = map.getCanvasContainer();
 
-      // Load map and dataset
-      map.on('load', function () {
-        d3.json(
-          'https://raw.githubusercontent.com/michael-hase/hase-datavisualization-final.github.io/12105b46f22bca58c9f98987ea400916830db726/data/calfire.geojson',
-          function (err, data) {
-            drawData(data);
-          }
-        );
-      });
+        // Overlay d3 on the map
+        var svg = d3.select(canvas).append("svg");
 
-      // Project GeoJSON coordinate to the map's current state
-      function project(d) {
-        return map.project(new mapboxgl.LngLat(+d[0], +d[1]));
-      }
+        // Projection functions
+        var transform = d3.geo.transform({point:projectPoint});
+	    var path = d3.geo.path().projection(transform);
 
-      // Project any point (lon, lat) to map's current state
-      function projectPoint(lon, lat) {
-        var point = map.project(new mapboxgl.LngLat(lon, lat));
-        this.stream.point(point.x, point.y);
-      }
 
-      //////////////
-      // D3 stuff
-      //////////////
+        // Load map and dataset
+        map.on('load', function () {
+            d3.json("https://raw.githubusercontent.com/michael-hase/hase-datavisualization-final.github.io/12105b46f22bca58c9f98987ea400916830db726/data/calfire.geojson", function(err, data) {
+                drawData(data);
+            });
+        });
 
-      // Draw GeoJSON data with d3
-      var polygons;
-      function drawData(data) {
-        console.log('draw data');
+        // Project GeoJSON coordinate to the map's current state
+        function project(d) {
+            return map.project(new mapboxgl.LngLat(+d[0], +d[1]));
+        }
 
-        // Add polygons
-        polygons = svg
-          .selectAll('path')
-          .data([data]) // Bind GeoJSON features
-          .enter()
-          .append('path'); // Add click event listener
+        // Project any point (lon, lat) to map's current state
+        function projectPoint(lon, lat) {
+            var point = map.project(new mapboxgl.LngLat(lon, lat));
+            this.stream.point(point.x, point.y);
+        }
 
-        // Call the update function
-        update();
 
-        // Update on map interaction
-        map.on('viewreset', update);
-        map.on('move', update);
-        map.on('moveend', update);
-      }
+        //////////////
+        // D3 stuff
+        //////////////
 
-      // Update d3 shapes' positions to the map's current state
-      function update() {
-        console.log('update');
+        // Draw GeoJSON data with d3
+        var polygons;
+        function drawData(data) {
+            console.log("draw data");
 
-        polygons.attr('d', path);
-      }
+            // Add polygons
+            polygons = svg.selectAll("path")
+        		.data([data])
+        		.enter()
+        		.append("path");
+
+            // Call the update function
+            update();
+
+            // Update on map interaction
+            map.on("viewreset", update);
+            map.on("move",      update);
+            map.on("moveend",   update);
+        }
+
+        // Update d3 shapes' positions to the map's current state
+        function update() {
+            console.log("update");
+
+            polygons.attr("d", path);
+        }
+
     </script>
   </body>
 </html>
