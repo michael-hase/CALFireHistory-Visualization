@@ -158,7 +158,7 @@
             '2022': 'data/Updated_FirePerimeters_2022.geojson',
           };
 
-// Add the drought data source and layer (from Script 1)
+          // Add the drought data source and layer (from Script 1)
           map.addSource('drought-data', {
             'type': 'geojson',
             'data': '', // Initial data is empty, you'll update it using loadDroughtGeoJSON
@@ -179,21 +179,20 @@
             }
           });
 
-// Use D3 to load GeoJSON data for each year
+          // Use D3 to load GeoJSON data for each year
           for (const year in yearsData) {
             d3.json(yearsData[year], function(error, data) {
               if (error) throw error;
 
-              // Add the GeoJSON data as a layer on the map
-              map.addSource(`fire-source-${year}`, {
-                'type': 'geojson',
-                'data': data
-              });
+              // Add the GeoJSON data as a layer on the ma
 
               map.addLayer({
                 'id': `fire-layer-${year}`,
                 'type': 'fill',
-                'source': `fire-source-${year}`,
+                'source': {
+                  'type': 'geojson',
+                  'data': yearsData[year]
+                },
                 'layout': {
                   'visibility': 'none' // initially set to 'none'
                 },
