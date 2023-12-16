@@ -290,6 +290,16 @@
           });
 
           function loadDroughtData(monthYear) {
+
+            const layers = map.getStyle().layers;
+            let firstSymbolId;
+            for (const layer of layers) {
+              if (layer.type === 'symbol') {
+                firstSymbolId = layer.id;
+                break;
+              }
+            }  
+
             const filePath = `data/${monthYear}_filtered.geojson`;
             d3.json(filePath).then(data => {
               if (map.getLayer('drought-later')){
@@ -307,7 +317,9 @@
                     'fill-color': ['get', 'fill', ['properties']],
                     'fill-opacity': 0.5,
                     },
-                });
+                },
+                firstSymbolId
+                );
               }
             }).catch(error => {
               console.error('Error loading drough data for ${monthYear}:',error);
