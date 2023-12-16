@@ -110,6 +110,19 @@
         center: [-120, 37.8],
       });
 
+      d3.select("#about-map-button").on("click", function() {
+        d3.select("#about").style("display", "none");});
+
+      d3.select("#about-close").on("click", function() {
+        d3.select("#about").style("display", "none");});
+
+      d3.select("#about").on("click", function() {
+        d3.select("#about").style("display", "none");});
+
+      d3.select("#about-link").on("click", function() {
+        d3.select("#about").style("display", "block");
+      });
+
 
         //////////////////////////
         // Mapbox+D3 Connection
