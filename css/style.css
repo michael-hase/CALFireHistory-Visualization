@@ -186,4 +186,91 @@ svg {
 	font-weight: bold;
 	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1); /* subtle text shadow */
   }
+
+/******************** SIDEBAR *************************/
+
+#sidebar {
+	position: absolute;
+	z-index: 1012022;
+	top: 60px;
+	right: 10px;
+	width: 150px;
+}
   
+  
+/******************** LEGEND *************************/
+  
+.av {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 8px;
+}
+  
+.caption {
+	display: inline-block;
+  }
+  
+#legend {
+	z-index: 1012022;
+	background: rgba(0, 92, 0, 0.6);
+	font-size: 12px;
+}
+  
+#legend-content {
+	padding: 5px;
+	display: block;
+}
+  
+.line {
+	line-height: 18px;
+	display: flex;
+}
+  
+#acres_0 {
+	color: #fdd49e;
+}
+  
+#acres_100 {
+	color: #fdbb84;
+}
+  
+#acres_200 {
+	color: #fc8d59;
+}
+  
+#acres_400 {
+	color: #ef6548;
+}
+  
+#acres_800 {
+	color: #d7301f;
+}
+  
+#acres_1600 {
+	color: #b30000;
+}
+  
+#acres_12800 {
+	color: #7f0000;
+}
+  
+  
+/******************** NEIGHBORHOOD FILTER *************************/
+  
+.av2 {
+	display: inline-block;
+	margin-right: 8px;
+}
+  
+#cbs {
+	z-index: 1012022;
+	background: rgba(0, 92, 0, 0.6);
+	font-size: 12px;
+}
+  
+#cbs-content {
+	padding: 5px;
+	display: block;
+	margin-top: 10px;
+}
