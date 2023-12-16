@@ -270,8 +270,35 @@
             });
 
           }
+          handleLayerVisibility();
 
         });
+
+        function handleLayerVisibility() {
+          var years = {
+            '2017': cb1.property("checked"),
+            '2018': cb2.property("checked"),
+            '2019': cb3.property("checked"),
+            '2020': cb4.property("checked"),
+            '2021': cb5.property("checked"),
+            '2022': cb6.property("checked")
+          };
+
+          for (var year in years) {
+            var layerId = `fire-layer-${year}`;
+            var visibility = years[year] ? 'visible' : 'none';
+
+            // Update the visibility of the layer
+            if (map.getLayer(layerId)) {
+              map.setLayoutProperty(layerId, 'visibility', visibility);
+            }
+          }
+
+          if (media == "mobile") changeMode({id: 'viz'});
+        }
+
+        cbn.on("change", handleLayerVisibility);
+
 
     </script>
     </div>
