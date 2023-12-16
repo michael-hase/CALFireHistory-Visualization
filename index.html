@@ -296,7 +296,7 @@
                   map.getSource('drought-layer').setData(data);
               } else {
                 map.addLayer({
-                  'id': 'drought-layer',
+                  'id': `drought-layer-${monthYear}`,
                   'type': 'fill',
                   'source': {
                     'type': 'geojson',
