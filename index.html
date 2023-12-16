@@ -1,13 +1,13 @@
 <!DOCTYPE html >
-<html>
+<html lang="en">
   <head>
       <meta charset="utf-8" />
       <title>mapboxgl.js + d3.js tutorial - 04</title>
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
-      <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css" rel="stylesheet" />
-      <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js"></script>
+      <link rel='stylesheet' href='css/mapbox-gl.css' type='text/css' />
+      <script src="js/mapbox-gl.js"></script>
       <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js" charset="utf-8"></script>
+      <script src="js/d3.v7.min.js" charset="utf-8"></script>
 
       <style media="screen">
           body { margin:0; padding:0; }
@@ -38,13 +38,13 @@
         //////////////////
 
         // Set-up map
-    	mapboxgl.accessToken = 'pk.eyJ1Ijoiam9yZGl0b3N0IiwiYSI6ImQtcVkyclEifQ.vwKrOGZoZSj3N-9MB6FF_A';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/outdoors-v9',
-            zoom:5.1,
-            center: [-120, 37.8],
-        });
+    	mapboxgl.accessToken = "pk.eyJ1IjoibWhhc2UiLCJhIjoiY2xwbGlhaTlzMDBjMjJpcGpmOTV2bm81bSJ9.3zM0OFHwRTg8fDdz8kmAfg";
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/outdoors-v9',
+        zoom:5.1,
+        center: [-120, 37.8],
+      });
 
 
         //////////////////////////
@@ -58,59 +58,83 @@
         var svg = d3.select(canvas).append("svg");
 
         // Projection functions
-        var transform = d3.geo.transform({point:projectPoint});
-	    var path = d3.geo.path().projection(transform);
+        const transform = d3.geoTransform({point: projectPoint});
+          const path = d3.geoPath().projection(transform);
 
-
-        // Load map and dataset
-        map.on('load', function () {
-            d3.json("https://raw.githubusercontent.com/michael-hase/hase-datavisualization-final.github.io/12105b46f22bca58c9f98987ea400916830db726/data/calfire.geojson", function(err, data) {
-                drawData(data);
-            });
-        });
-
-        // Project GeoJSON coordinate to the map's current state
         function project(d) {
-            return map.project(new mapboxgl.LngLat(+d[0], +d[1]));
-        }
+              return map.project(new mapboxgl.LngLat(+d[0], +d[1]));
+            }
 
-        // Project any point (lon, lat) to map's current state
+            // Project any point (lon, lat) to map's current state
         function projectPoint(lon, lat) {
-            var point = map.project(new mapboxgl.LngLat(lon, lat));
-            this.stream.point(point.x, point.y);
+          var point = map.project(new mapboxgl.LngLat(lon, lat));
+          this.stream.point(point.x, point.y);
         }
+        // Load map and dataset
+        map.on('load', function(){
+          const yearsData = {
+            '2017': 'data/Updated_FirePerimeters_2017.geojson',
+            '2018': 'data/Updated_FirePerimeters_2018.geojson',
+            '2019': 'data/Updated_FirePerimeters_2019.geojson',
+            '2020': 'data/Updated_FirePerimeters_2020.geojson',
+            '2021': 'data/Updated_FirePerimeters_2021.geojson',
+            '2022': 'data/Updated_FirePerimeters_2022.geojson',
+          };
 
+// Add the drought data source and layer (from Script 1)
+          map.addSource('drought-data', {
+            'type': 'geojson',
+            'data': '', // Initial data is empty, you'll update it using loadDroughtGeoJSON
+          });
 
-        //////////////
-        // D3 stuff
-        //////////////
+          map.addLayer({
+            'id': 'drought-layer',
+            'type': 'fill',
+            'source': 'drought-data',
+            'paint': {
+              'fill-color': [
+                'case',
+                ['has', 'fill'], // Check if the "fill" property exists
+                ['get', 'fill'], // Use the "fill" property if it exists
+                '#ffffff' // Default fill color if "fill" property is missing or null
+              ],
+              'fill-opacity': 0.3
+            }
+          });
 
-        // Draw GeoJSON data with d3
-        var polygons;
-        function drawData(data) {
-            console.log("draw data");
+// Use D3 to load GeoJSON data for each year
+          for (const year in yearsData) {
+            d3.json(yearsData[year], function(error, data) {
+              if (error) throw error;
 
-            // Add polygons
-            polygons = svg.selectAll("path")
-        		.data([data])
-        		.enter()
-        		.append("path");
+              // Add the GeoJSON data as a layer on the map
+              map.addSource(`fire-source-${year}`, {
+                'type': 'geojson',
+                'data': data
+              });
 
-            // Call the update function
-            update();
+              map.addLayer({
+                'id': `fire-layer-${year}`,
+                'type': 'fill',
+                'source': `fire-source-${year}`,
+                'layout': {
+                  'visibility': 'none' // initially set to 'none'
+                },
+                'paint': {
+                  'fill-color': [
+                    'case',
+                    ['has', 'fill'], // Check if the "fill" property exists
+                    ['get', 'fill'], // Use the "fill" property if it exists
+                    '#ffffff' // Default fill color if "fill" property is missing or null
+                  ],
+                  'fill-opacity': 0.8
+                }
+              });
+            });
 
-            // Update on map interaction
-            map.on("viewreset", update);
-            map.on("move",      update);
-            map.on("moveend",   update);
-        }
+          }
 
-        // Update d3 shapes' positions to the map's current state
-        function update() {
-            console.log("update");
-
-            polygons.attr("d", path);
-        }
+        })
 
     </script>
   </body>
