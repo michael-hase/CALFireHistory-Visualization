@@ -1,16 +1,26 @@
 @charset "utf-8";
 /* CSS Document */
 
+/******************** GENERAL *************************/
+
 body {
-	width: 100%;
-	height: 100%;
-	margin: 20px 20px;
-	font-family: "Proxima Nova Rg", Arial, Helvetica, sans-serif;
-	/* text unselectable */
-	-webkit-user-select: none; /* Chrome/Safari */
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+ */
-}
+	color: #eee;
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+  }
+  
+  a,
+  a:visited {
+	color: #ccc;
+  }
+  
+  a:hover,
+  a:active {
+	color: #08f;
+  }
+  
 
 svg {
 	position: absolute;
@@ -75,4 +85,102 @@ svg {
 	font-size: 1em;
 	font-weight: bold;
 	position: absolute;
+}
+
+/******************** HEADER *************************/
+
+#about-link {
+	float: right;
+	font-weight: 300;
+	margin-right: 20px;
+	cursor: pointer; 
+  }
+  
+#legend-mobile {
+	display: none;
+	float: right;
+	font-weight: 300;
+	margin-right: 20px;
+	cursor: pointer;
+}
+  
+#header {
+	background: rgba(0, 68, 0, 0.74);
+	color: #eee;
+	height: 50px;
+	line-height: 50px;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	z-index: 1000000;
+}
+
+#title {
+	float: left;
+	font-weight: 300;
+	margin-left: 20px;
+	font-size: 24px;
+}
+
+/******************** ABOUT *************************/
+
+#about {
+	display: none;
+	position: absolute;
+	z-index: 20202020;
+	background: rgba(0, 68, 0, 0.74);
+	width: 100%;
+	height: 100%;
+	overflow:auto;
+}
+  
+#about-close {
+	border: 1px solid #eee;
+	position: fixed;
+	right: 0px;
+	margin-top: 20px;
+	margin-right: 20px;
+	float: right;
+	top: 0px;
+	width: 38px;
+	height: 38px;
+	border-radius: 19px;
+	background: url('../assets/close.svg') center center no-repeat;
+	cursor: pointer;
+	opacity: 0.6;
+	font-size: 13px;
+}
+  
+#about-close:hover {
+	opacity: 0.9;
+}
+  
+#about-content {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	margin-bottom: 40px;
+	max-width: 570px;
+	padding: 10px;
+}
+  
+#about-credits {
+	font-size: 13px;
+	line-height: 20px;
+}
+  
+#about-header {
+	font-weight: 400;
+	font-size: 24px;
+	color: #ccc;
+}
+  
+#about-map-button:hover {
+	background: #0cf;
+}
+  
+#about-text {
+	font-size: 12px;
+	line-height: 16px;
+	color: #ccc;
 }
