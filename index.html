@@ -277,7 +277,7 @@
           const droughtDropdown = d3.select('#drought-month-year-dropdown');
 
           months.forEach(month => {
-            years.forEach(year => {
+            year.forEach(year => {
               droughtDropdown.append('option')
                 .attr('value', month + year)
                 .text('${month} ${year}');
