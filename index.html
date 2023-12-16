@@ -237,8 +237,8 @@
 
           // Use D3 to load GeoJSON data for each year
           for (const year in yearsData) {
-            d3.json(yearsData[year], function(error, data) {
-              if (error) throw error;
+            d3.json(yearsData[year]).then(data => {
+              console.log(`Data for ${year}`, data);
 
               // Add the GeoJSON data as a layer on the ma
 
@@ -254,6 +254,8 @@
                 },
                 
               });
+            }).catch(error => {
+              console.error(`Error loading data for ${year}:`, error);
             });
 
           }
