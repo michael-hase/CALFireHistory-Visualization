@@ -252,6 +252,9 @@
                 'layout': {
                   'visibility': 'visible' // initially set to 'none'
                 },
+                'paint': {
+                  'fill-color': ['get', 'fill', ['properties']] // Accessing the 'fill' property
+                },
                 
               });
             }).catch(error => {
