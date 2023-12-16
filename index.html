@@ -168,15 +168,7 @@
             'id': 'drought-layer',
             'type': 'fill',
             'source': 'drought-data',
-            'paint': {
-              'fill-color': [
-                'case',
-                ['has', 'fill'], // Check if the "fill" property exists
-                ['get', 'fill'], // Use the "fill" property if it exists
-                '#ffffff' // Default fill color if "fill" property is missing or null
-              ],
-              'fill-opacity': 0.3
-            }
+            
           });
 
           // Use D3 to load GeoJSON data for each year
@@ -196,15 +188,7 @@
                 'layout': {
                   'visibility': 'none' // initially set to 'none'
                 },
-                'paint': {
-                  'fill-color': [
-                    'case',
-                    ['has', 'fill'], // Check if the "fill" property exists
-                    ['get', 'fill'], // Use the "fill" property if it exists
-                    '#ffffff' // Default fill color if "fill" property is missing or null
-                  ],
-                  'fill-opacity': 0.8
-                }
+                
               });
             });
 
