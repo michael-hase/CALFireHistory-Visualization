@@ -160,7 +160,7 @@
       </div>
     </div>
 
-    <div id="map">
+    <div id="map"></div>
     <script>
 
       var cb1 = d3.select("#cb1");
@@ -178,7 +178,7 @@
         // Set-up map
     	mapboxgl.accessToken = 'pk.eyJ1IjoibWhhc2UiLCJhIjoiY2xwbGlhaTlzMDBjMjJpcGpmOTV2bm81bSJ9.3zM0OFHwRTg8fDdz8kmAfg';
       
-      var map = new mapboxgl.Map({
+      const map = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mhase/clpve0l9f00xf01p7dnd8ftx2",
         center: [-120, 36.5],
@@ -286,7 +286,6 @@
 
 
     </script>
-    </div>
   </body>
 </html>
 
