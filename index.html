@@ -158,6 +158,13 @@
           </div>
         </div>
       </div>
+      
+      <!-- DROP DOWN FOR DROUGHT DATA -->
+      <div id="drought-data-selector">
+        <select id="drought-month-year-dropdown">
+            <!-- Options will be added dynamically using JavaScript -->
+        </select>
+    </div>
     </div>
 
     <div id="map"></div>
@@ -263,6 +270,47 @@
 
           }
           handleLayerVisibility();
+
+          const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+          const year = ['2017', '2018', '2019', '2020', '2021', '2022'];
+
+          const droughtDropdown = d3.select('#drought-month-year-dropdown');
+
+          months.forEach(month => {
+            years.forEach(year => {
+              droughtDropdown.append('option')
+                .attr('value', month + year)
+                .text('${month} ${year}');
+            });
+          });
+
+          droughtDropdown.on('change', function() {
+            const selectedMonthYear = d3.select(this).property('value');
+            loadDroughtData(selectedMonthYear);
+          });
+
+          function loadDroughtData(monthYear) {
+            const filePath = `data/${monthYear}_filtered.geojson`;
+            d3.json(filePath).then(data => {
+              if (map.getLayer('drought-later')){
+                  map.getSource('drought-layer').setData(data);
+              } else {
+                map.addLayer({
+                  'id': 'drought-layer',
+                  'type': 'fill',
+                  'source': {
+                    'type': 'geojson',
+                    'data': data,
+                    'paint': {
+                    'fill-color': ['get', 'fill', ['properties']]
+                    },
+                  }
+                });
+              }
+            }).catch(error => {
+              console.error('Error loading drough data for ${monthYear}:',error);
+            });
+          }
 
         });
 
