@@ -301,10 +301,11 @@
                   'source': {
                     'type': 'geojson',
                     'data': data,
-                    'paint': {
-                    'fill-color': ['get', 'fill', ['properties']]
+                  },
+                  'paint': {
+                    'fill-color': ['get', 'fill', ['properties']],
+                    'fill-opacity': 0.5,
                     },
-                  }
                 });
               }
             }).catch(error => {
