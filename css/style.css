@@ -283,7 +283,7 @@ svg {
 }
 
 #drought-data-selector select {
-    width: 30%; /* Full width */
+    width: 60%; /* Full width */
     padding: 8px 15px; /* Some padding inside */
     margin: 5px 0; /* Margin around the select */
     display: inline-block; /* Inline block display */
