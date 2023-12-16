@@ -265,7 +265,7 @@ svg {
   
 #cbs {
 	z-index: 1012022;
-	background: rgba(0, 92, 0, 0.6);
+	background: #005c0099;
 	font-size: 12px;
 }
   
@@ -273,4 +273,24 @@ svg {
 	padding: 5px;
 	display: block;
 	margin-top: 10px;
+}
+
+#drought-data-selector{
+	background: #005c0099;
+	padding: 10px;
+	display: block;
+	margin-top: 5px;
+}
+
+#drought-data-selector select {
+    width: 30%; /* Full width */
+    padding: 8px 15px; /* Some padding inside */
+    margin: 5px 0; /* Margin around the select */
+    display: inline-block; /* Inline block display */
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Slightly rounded corners */
+    box-sizing: border-box; /* Box sizing */
+    background-color: white; /* White background */
+    font-size: 12px; /* Larger font size */
+    cursor: pointer; /* Pointer cursor on hover */
 }
