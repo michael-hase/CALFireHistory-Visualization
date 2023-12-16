@@ -289,6 +289,36 @@
 
         cbn.on("change", handleLayerVisibility);
 
+        map.getCanvas().style.cursor = "default";
+
+        map.on('click', function(e) {
+          // Check if a feature in the map is clicked.
+          var features = map.queryRenderedFeatures(e.point, { layers: ['fire-layer-2017', 'fire-layer-2018', 'fire-layer-2019', 'fire-layer-2020', 'fire-layer-2021', 'fire-layer-2022' /* and other layer IDs */] });
+
+          if (!features.length) {
+            return;
+          }
+
+          var feature = features[0];
+
+          // Create popup content for fire map
+          var popupContent = `
+          <div class="map-popup-content">
+            <div class="map-popup-feature"><strong>Year:</strong> ${feature.properties.YEAR_}</div>
+            <div class="map-popup-feature"><strong>Fire Name:</strong> ${feature.properties.FIRE_NAME}</div>
+            <div class="map-popup-feature"><strong>Agency:</strong> ${feature.properties.AGENCY}</div>
+            <div class="map-popup-feature"><strong>State:</strong> ${feature.properties.STATE}</div>
+            <div class="map-popup-feature"><strong>Cause:</strong> ${feature.properties.CAUSE}</div>
+            <div class="map-popup-feature"><strong>Acres Burned:</strong> ${feature.properties.GIS_ACRES}</div>
+          </div>`;
+
+          // Create and show the popup
+          new mapboxgl.Popup()
+            .setLngLat(e.lngLat)
+            .setHTML(popupContent)
+            .addTo(map);
+        });
+
 
     </script>
   </body>
