@@ -256,7 +256,7 @@ svg {
 }
   
   
-/******************** NEIGHBORHOOD FILTER *************************/
+/******************** FIRE FILTER *************************/
   
 .av2 {
 	display: inline-block;
@@ -291,6 +291,42 @@ svg {
     border-radius: 2px; /* Slightly rounded corners */
     box-sizing: border-box; /* Box sizing */
     background-color: white; /* White background */
-    font-size: 12px; /* Larger font size */
+    font-size: 10px; /* Larger font size */
     cursor: pointer; /* Pointer cursor on hover */
 }
+
+#drought-legend {
+	z-index: 1012022;
+	background: rgba(0, 92, 0, 0.6);
+	font-size: 12px;
+} 
+#drought-legend-content {
+	padding: 5px;
+	display: block;
+}
+  
+.line {
+	line-height: 18px;
+	display: flex;
+}
+  
+#dm_0 {
+	color: #dfb877;
+}
+  
+#dm_1 {
+	color: #e7a53a;
+}
+  
+#dm_2 {
+	color: #cf8000;
+}
+  
+#dm_3 {
+	color: #a46b0f;
+}
+  
+#dm_4 {
+	color: #7a5213;
+}
+  
