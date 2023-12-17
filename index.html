@@ -482,10 +482,12 @@
         .filter(function() { return this.checked; })
         .nodes()
         .map(el => el.value);
-
+      
+      console.log("Selected years:", selectedYears);
       // Filter data based on selected years
       const filteredData = allFireData.filter(d => selectedYears.includes(d.YEAR_.toString()));
 
+      console.log("Filtered data:", filteredData);
       // Update the summary with the filtered data
       updateFireSummary(filteredData);
     });

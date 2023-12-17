@@ -198,6 +198,14 @@ svg {
     background: #005c0099;
     font-size: 12px;
 }
+
+#fire-summary-content {
+	height: 400px; /* Adjust height as needed */
+	overflow-y: auto; /* Enables vertical scrolling */
+	padding: 10px;
+	border: 1px solid #ccc; /* Optional: adds a border */
+	box-shadow: 0 2px 5px rgba(0,0,0,0.15); /* Optional: adds shadow for better visibility */
+}
   
 #fire-summary {
 	margin-top: 20px;
