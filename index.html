@@ -372,11 +372,11 @@
         });
 
         
-        function handleLayerVisibility() {
+        function handleLayerVisibility(yearArray) {
 
-          for (var year in selectedYears) {
+          for (var year in yearArray) {
             var layerId = `fire-layer-${year}`;
-            var visibility = selectedYears[year] ? 'visible' : 'none';
+            var visibility = yearArray[year] ? 'visible' : 'none';
 
             if (map.getLayer(layerId)) {
               map.setLayoutProperty(layerId, 'visibility', visibility)
@@ -484,7 +484,7 @@
       console.log("Filtered data:", filteredData);
       // Update the summary with the filtered data
       updateFireSummary(filteredData);
-      handleLayerVisibility();
+      handleLayerVisibility(selectedYears);
     });
   
 
