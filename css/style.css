@@ -280,11 +280,9 @@ svg {
 	padding: 10px;
 	display: block;
 	margin-top: 5px;
+	font: 10px;
 }
 
-#drought-data-selector .line{
-	font-size: 10px;
-}
 
 #drought-data-selector select {
     width: 100%; /* Full width */
