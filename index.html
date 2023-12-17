@@ -373,12 +373,8 @@
 
     
         function handleLayerVisibility() {
-          const selectedYear = d3.selectAll('.cbn')
-            .filter(function() { return this.checked; })
-            .nodes()
-            .map(el => el.value);
           
-          selectedYear.forEach(year => {
+          selectedYears.forEach(year => {
             var layerId = `fire-layer-${year}`;
             console.log("checking layer", layerId)
             if (map.getLayer(layerId)) {
