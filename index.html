@@ -477,15 +477,19 @@
 
     // Event listener for checkboxes
     d3.selectAll('.cbn').on('change', function() {
-      // Filter data based on checked years
-      const selectedYears = d3.selectAll('.cbn').filter(function() { return this.checked; })
-                              .nodes().map(el => el.value);
-      
+      // Get array of selected years
+      const selectedYears = d3.selectAll('.cbn')
+        .filter(function() { return this.checked; })
+        .nodes()
+        .map(el => el.value);
+
+      // Filter data based on selected years
       const filteredData = allFireData.filter(d => selectedYears.includes(d.YEAR_.toString()));
+
+      // Update the summary with the filtered data
       updateFireSummary(filteredData);
     });
-    
-
+  
 
     </script>
   </body>

@@ -190,25 +190,31 @@ svg {
 /******************** SIDEBAR *************************/
 
 #sidebarleft {
-	position: fixed; /* Fixed position to stay on the left */
-	left: 0;
-	top: 0;
-	width: 300px; /* Adjust the width as needed */
-	height: 100%;
-	overflow-y: auto; /* Enable scrolling if content is too long */
-	background-color: #f4f4f4; /* Background color */
-	padding: 10px;
-	box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Optional: adds shadow to the sidebar */
-  }
+	position: absolute;
+	z-index: 1012022;
+	top: 60px;
+	left: 10px;
+	width: 150px;
+    background: #005c0099;
+    font-size: 12px;
+}
   
-  #fire-summary {
+#fire-summary {
 	margin-top: 20px;
-  }
+}
   
-  #fire-summary h3 {
+#fire-summary h3 {
 	margin-bottom: 10px;
-  }
-  
+}
+
+.year-summary {
+	padding: 10px;
+	margin-bottom: 10px;
+	background-color: #005c0099;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 #sidebar {
 	position: absolute;
 	z-index: 1012022;
@@ -233,7 +239,7 @@ svg {
   
 #legend {
 	z-index: 1012022;
-	background: rgba(0, 92, 0, 0.6);
+	background: #005c0099;
 	font-size: 12px;
 }
   
