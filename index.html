@@ -372,27 +372,29 @@
         });
 
         function handleLayerVisibility() {
-          var years = {
-            '2017': cb1.property("checked"),
-            '2018': cb2.property("checked"),
-            '2019': cb3.property("checked"),
-            '2020': cb4.property("checked"),
-            '2021': cb5.property("checked"),
-            '2022': cb6.property("checked")
-          };
+          const checkedBox = d3.selectAll('.cbn').filter(function() { return this.checked; });
 
-          for (var year in years) {
+          const selectedYear = checkedBox.nodes().map(el => el.value);
+
+          selectedYear.forEach(year => {
             var layerId = `fire-layer-${year}`;
-            var visibility = years[year] ? 'visible' : 'none';
-
-            // Update the visibility of the layer
             if (map.getLayer(layerId)) {
-              map.setLayoutProperty(layerId, 'visibility', visibility);
+              map.setLayoutProperty(layerId, 'visibility', 'visible')
             }
-          }
+          });
+
+          d3.selectAll('.cbn').filter(function() { return !this.checked; })
+          .each(function() {
+            var layerId = `fire-layer-${this.value}`;
+            if (map.getLayer(layerId)) {
+              map.setLayoutProperty(layerId, 'visibility', 'none');
+            }
+          });
+          
+          
         }
 
-        cbn.on("change", handleLayerVisibility);
+        d3.selectAll('.cbn').on("change", handleLayerVisibility);
 
         map.getCanvas().style.cursor = "default";
 
