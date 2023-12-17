@@ -373,26 +373,15 @@
 
     
         function handleLayerVisibility() {
-          
-          selectedYears.forEach(year => {
-            var layerId = `fire-layer-${year}`;
-            console.log("checking layer", layerId)
-            if (map.getLayer(layerId)) {
-              console.log("Setting layer visible:", layerId);
-              map.setLayoutProperty(layerId, 'visibility', 'visible')
-            }
-          });
 
-          d3.selectAll('.cbn').filter(function() { return !this.checked; })
-          .each(function() {
-            var layerId = `fire-layer-${this.value}`;
-            console.log("Checking layer to hide:", layerId);
+          for (var year in selectedYears) {
+            var layerId = `fire-layer-${year}`;
+            var visibility = selectedYears[year] ? 'visible' : 'none';
+
             if (map.getLayer(layerId)) {
-              console.log("Setting layer hidden:", layerId);
-              map.setLayoutProperty(layerId, 'visibility', 'none');
+              map.setLayoutProperty(layerId, 'visibility', visibility)
             }
-          });
-          
+          }  
           
         }
 
