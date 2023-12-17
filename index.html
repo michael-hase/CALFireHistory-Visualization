@@ -470,8 +470,8 @@
         .attr("class", "year-summary")
         .html(d => `
           <h4>${d.year}</h4>
-          <p>Total Acres Burned: ${d.totalAcres.toFixed(2)}</p>
-          <p>Leading Cause: ${d.mostCommonCause}</p>
+          <p><strong>Total Acres Burned:</strong> ${d.totalAcres.toFixed(2)}</p>
+          <p><strong>Leading Cause:</strong> ${d.mostCommonCause}</p>
         `);
     }
 
