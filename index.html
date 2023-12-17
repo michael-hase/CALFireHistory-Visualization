@@ -71,13 +71,14 @@
           <!-- ABOUT/CONENT/TEXT/CREDITS -->
           <div id='about-credits'>
             <p>
-              <br/>Data - <a href='https://data.ca.gov/dataset/recent-large-fire-perimeters-5000-acres' target='_blank'>CAL Fire</a>
+              <br/>Fire Data - <a href='https://data.ca.gov/dataset/recent-large-fire-perimeters-5000-acres' target='_blank'>CAL Fire</a>
+              <br/>Drought Data - <a href='https://droughtmonitor.unl.edu/' target='_blank'>CAL Fire</a>
               <br/>Map engine - <a href='https://www.mapbox.com/mapbox-gl-js/' target='_blank'>Mapbox GL JS</a>
               <br/>Graphing engine - <a href='https://d3js.org' target='_blank'>D3.js</a>
               <br/>Github - <a href='https://github.com/michael-hase' target='_blank'>@michael-hase</a>
             </p>
           </div>
-
+        
         </div>
       </div>
     
@@ -397,11 +398,12 @@
           var popupContent = `
           <div class="map-popup-content">
             <div class="map-popup-feature"><strong>Year:</strong> ${feature.properties.YEAR_}</div>
+            <div class="map-popup-feature"><strong>Acres Burned:</strong> ${feature.properties.GIS_ACRES}</div>
             <div class="map-popup-feature"><strong>Fire Name:</strong> ${feature.properties.FIRE_NAME}</div>
             <div class="map-popup-feature"><strong>Agency:</strong> ${feature.properties.AGENCY}</div>
             <div class="map-popup-feature"><strong>State:</strong> ${feature.properties.STATE}</div>
             <div class="map-popup-feature"><strong>Cause:</strong> ${feature.properties.CAUSE}</div>
-            <div class="map-popup-feature"><strong>Acres Burned:</strong> ${feature.properties.GIS_ACRES}</div>
+            <div class="map-popup-feature"><strong>Alarm Date:</strong> ${feature.properties.ALARM_DATE}</div>
           </div>`;
 
           // Create and show the popup

@@ -172,7 +172,7 @@ svg {
   }
   
   .map-popup-content {
-	background-color: rgba(255, 255, 255, 0.9); /* Solid white background with slight transparency */
+	background-color: rgba(208, 208, 208, 0.9); /* Solid white background with slight transparency */
 	color: #333; /* Dark text color */
 	font-size: 14px;
 	padding: 10px;
