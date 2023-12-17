@@ -53,7 +53,7 @@
         <!-- ABOUT/CONTENT/HEADER -->
         <div id = 'about-header'>Documentation Page</div>
 
-        <!-- ABOUT/CONENT/TEXT -->
+        <!-- ABOUT/CONTENT/TEXT -->
         <div id = 'about-text'>
           
           <p>
@@ -68,7 +68,7 @@
             Paragraph 3
           </p>
         
-          <!-- ABOUT/CONENT/TEXT/CREDITS -->
+          <!-- ABOUT/CONTENT/TEXT/CREDITS -->
           <div id='about-credits'>
             <p>
               <br/>Fire Data - <a href='https://data.ca.gov/dataset/recent-large-fire-perimeters-5000-acres' target='_blank'>CAL Fire</a>
@@ -289,7 +289,7 @@
             d3.json(yearsData[year]).then(data => {
               console.log(`Data for ${year}`, data);
 
-              // Add the GeoJSON data as a layer on the ma
+              // Add the GeoJSON data as a layer on the map
 
               map.addLayer({
                 'id': `fire-layer-${year}`,
@@ -299,7 +299,7 @@
                   'data': yearsData[year]
                 },
                 'layout': {
-                  'visibility': 'visible' // initially set to 'none'
+                  'visibility': 'visible' 
                 },
                 'paint': {
                   'fill-color': ['get', 'fill', ['properties']], // Accessing the 'fill' property

@@ -319,16 +319,16 @@ svg {
 }
 
 #drought-data-selector select {
-    width: 100%; /* Full width */
-    padding: 8px 15px; /* Some padding inside */
-    margin: 5px 0; /* Margin around the select */
-    display: inline-block; /* Inline block display */
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 2px; /* Slightly rounded corners */
-    box-sizing: border-box; /* Box sizing */
-    background-color: white; /* White background */
-    font-size: 10px; /* Larger font size */
-    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%;
+    padding: 8px 15px; 
+    margin: 5px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    border-radius: 2px; 
+    box-sizing: border-box; 
+    background-color: white; 
+    font-size: 10px; 
+    cursor: pointer; 
 }
 
 #drought-legend {
