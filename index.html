@@ -161,6 +161,7 @@
       
       <!-- DROP DOWN FOR DROUGHT DATA -->
       <div id="drought-data-selector">
+        <div class='line'>Drought Data (Month/Year):</div>
         <select id="drought-month-year-dropdown">
             <!-- Options will be added dynamically using JavaScript -->
         </select>
@@ -170,6 +171,9 @@
     <div id="map"></div>
     <script>
 
+      // Process Drought Data Fills
+      
+      // Setup Checkboxes
       var cb1 = d3.select("#cb1");
       var cb2 = d3.select("#cb2");
       var cb3 = d3.select("#cb3");
@@ -182,7 +186,7 @@
         // Mapbox stuff
         //////////////////
 
-        // Set-up map
+      // Set-up map
     	mapboxgl.accessToken = 'pk.eyJ1IjoibWhhc2UiLCJhIjoiY2xwbGlhaTlzMDBjMjJpcGpmOTV2bm81bSJ9.3zM0OFHwRTg8fDdz8kmAfg';
       
       const map = new mapboxgl.Map({
@@ -308,7 +312,7 @@
                 map.addLayer({
                   'id': `drought-layer-${monthYear}`,
                   'type': 'fill',
-                  'slot': 'middle',
+                  'slot': 'bottom',
                   'source': {
                     'type': 'geojson',
                     'data': data,
