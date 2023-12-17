@@ -84,6 +84,17 @@
     
     </div>
 
+    <!-- SUMMARY SIDEBAR-->
+    <div id="sidebarleft">
+
+      <div id="fire-summary">
+        <h3>Fire Summary</h3>
+        <div id="fire-summary-content">
+          <!-- D3 will populate this -->
+        </div>
+      </div>
+    </div>
+
     <div id='sidebar'>
 
       <!-- LEGEND -->
@@ -412,6 +423,68 @@
             .setHTML(popupContent)
             .addTo(map);
         });
+    
+   
+
+    let allFireData;
+    d3.csv('data/calfiresummary.csv').then(data => {
+      allFireData = data;
+      updateFireSummary(data); // Initial load with all data
+    }).catch(error => {
+      console.error("Error loading the CSV file:", error);
+    });
+
+    const causeMapping = {
+      1: "Lightning",
+      2: "Equipment Use",
+      4: "Campfire",
+      5: "Debris",
+      7: "Arson",
+      8: "Playing with Fire",
+      9: "Misc.",
+      10: "Vehicle",
+      11: "Powerline",
+      14: "Unknown"
+    };
+
+    function updateFireSummary(data) {
+      let summaryData = d3.rollup(data, 
+        v => ({
+          totalAcres: d3.sum(v, d => +d.GIS_ACRES),
+          mostCommonCause: causeMapping[d3.mode(v, d => d.CAUSE)]
+        }), 
+        d => d.YEAR_
+      );
+
+      // Convert Map to Array
+      summaryData = Array.from(summaryData, ([year, values]) => ({ year, ...values }));
+
+      // Update the summary sidebar
+      const summaryDiv = d3.select("#fire-summary-content");
+      summaryDiv.html(""); // Clear existing content
+
+      summaryDiv.selectAll(".year-summary")
+        .data(summaryData)
+        .enter()
+        .append("div")
+        .attr("class", "year-summary")
+        .html(d => `
+          <h4>${d.year}</h4>
+          <p>Total Acres Burned: ${d.totalAcres.toFixed(2)}</p>
+          <p>Leading Cause: ${d.mostCommonCause}</p>
+        `);
+    }
+
+    // Event listener for checkboxes
+    d3.selectAll('.cbn').on('change', function() {
+      // Filter data based on checked years
+      const selectedYears = d3.selectAll('.cbn').filter(function() { return this.checked; })
+                              .nodes().map(el => el.value);
+      
+      const filteredData = allFireData.filter(d => selectedYears.includes(d.YEAR_.toString()));
+      updateFireSummary(filteredData);
+    });
+    
 
 
     </script>

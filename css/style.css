@@ -189,6 +189,26 @@ svg {
 
 /******************** SIDEBAR *************************/
 
+#sidebarleft {
+	position: fixed; /* Fixed position to stay on the left */
+	left: 0;
+	top: 0;
+	width: 300px; /* Adjust the width as needed */
+	height: 100%;
+	overflow-y: auto; /* Enable scrolling if content is too long */
+	background-color: #f4f4f4; /* Background color */
+	padding: 10px;
+	box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Optional: adds shadow to the sidebar */
+  }
+  
+  #fire-summary {
+	margin-top: 20px;
+  }
+  
+  #fire-summary h3 {
+	margin-bottom: 10px;
+  }
+  
 #sidebar {
 	position: absolute;
 	z-index: 1012022;
