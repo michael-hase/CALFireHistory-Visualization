@@ -345,7 +345,7 @@
 
             const filePath = `data/${monthYear}_filtered.geojson`;
             d3.json(filePath).then(data => {
-              if (map.getLayer('drought-later')){
+              if (map.getLayer('drought-layer')){
                   map.getSource('drought-layer').setData(data);
               } else {
                 map.addLayer({
@@ -371,6 +371,7 @@
 
         });
 
+    
         function handleLayerVisibility() {
           const checkedBox = d3.selectAll('.cbn').filter(function() { return this.checked; });
 
@@ -378,6 +379,7 @@
 
           selectedYear.forEach(year => {
             var layerId = `fire-layer-${year}`;
+            console.log("checking layer", layerId)
             if (map.getLayer(layerId)) {
               map.setLayoutProperty(layerId, 'visibility', 'visible')
             }
