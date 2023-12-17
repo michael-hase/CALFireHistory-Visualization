@@ -228,32 +228,29 @@ svg {
 }
   
 #acres_0 {
-	color: #fdd49e;
+	color: #bb71f3;
 }
   
 #acres_100 {
-	color: #fdbb84;
+	color: #b248df;
 }
   
 #acres_200 {
-	color: #fc8d59;
+	color: #a425df;
 }
   
 #acres_400 {
-	color: #ef6548;
+	color: #660094;
 }
   
 #acres_800 {
-	color: #d7301f;
+	color: #3f0657;
 }
   
 #acres_1600 {
-	color: #b30000;
+	color: #21032f;
 }
   
-#acres_12800 {
-	color: #7f0000;
-}
   
   
 /******************** FIRE FILTER *************************/
@@ -313,7 +310,7 @@ svg {
 .line {
 	line-height: 18px;
 	display: flex;
-	font: 10px;
+	font-size: 12px;
 }
   
 #dm_0 {
