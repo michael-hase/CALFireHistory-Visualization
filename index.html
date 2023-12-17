@@ -372,17 +372,22 @@
         });
 
         
-        function handleLayerVisibility(yearArray) {
-
-          for (var year in yearArray) {
+        function handleLayerVisibility(selectedYears) {
+          // Hide all layers first
+          ['2017', '2018', '2019', '2020', '2021', '2022'].forEach(year => {
             var layerId = `fire-layer-${year}`;
-            var visibility = yearArray[year] ? 'visible' : 'none';
-
             if (map.getLayer(layerId)) {
-              map.setLayoutProperty(layerId, 'visibility', visibility)
+              map.setLayoutProperty(layerId, 'visibility', 'none');
             }
-          }  
-          
+          });
+
+          // Then show only the selected years' layers
+          selectedYears.forEach(year => {
+            var layerId = `fire-layer-${year}`;
+            if (map.getLayer(layerId)) {
+              map.setLayoutProperty(layerId, 'visibility', 'visible');
+            }
+          });
         }
         
         //d3.selectAll('.cbn').on("change", handleLayerVisibility);
@@ -469,23 +474,26 @@
         `);
     }
 
-    // Event listener for checkboxes
     d3.selectAll('.cbn').on('change', function() {
-      // Get array of selected years
       let selectedYears = d3.selectAll('.cbn')
         .filter(function() { return this.checked; })
         .nodes()
         .map(el => el.value);
-      
-      console.log("Selected years:", selectedYears);
+        console.log("Selected years:", selectedYears);
+
       // Filter data based on selected years
       const filteredData = allFireData.filter(d => selectedYears.includes(d.YEAR_.toString()));
 
       console.log("Filtered data:", filteredData);
+
       // Update the summary with the filtered data
       updateFireSummary(filteredData);
+
+      // Update layer visibility based on selected years
       handleLayerVisibility(selectedYears);
     });
+
+  
   
 
     </script>
