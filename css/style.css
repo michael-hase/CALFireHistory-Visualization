@@ -310,6 +310,7 @@ svg {
 .line {
 	line-height: 18px;
 	display: flex;
+	font: 10px;
 }
   
 #dm_0 {
