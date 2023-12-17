@@ -282,6 +282,10 @@ svg {
 	margin-top: 5px;
 }
 
+#drought-data-selector .line{
+	font-size: 10px;
+}
+
 #drought-data-selector select {
     width: 100%; /* Full width */
     padding: 8px 15px; /* Some padding inside */
